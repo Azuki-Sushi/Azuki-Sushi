@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Azuki Sushi Бишкек | Суши доставка Аламедин</title>
+
+<meta name="description" content="Azuki Sushi — Кольбаева 45Б Бишкек. Суши доставка 30-60 мүнөт.">
+<meta name="robots" content="index, follow">
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Restaurant",
+ "name": "Azuki Sushi",
+ "address": {
+   "@type": "PostalAddress",
+   "streetAddress": "Кольбаева 45Б",
+   "addressLocality": "Бишкек",
+   "addressCountry": "KG"
+ },
+ "telephone": "+996500605200",
+ "servesCuisine": "Sushi",
+ "priceRange": "$$"
+}
+</script>
+
+<style>
+body{margin:0;font-family:Arial;background:#0f172a;color:white;}
+header{background:#111827;padding:20px;text-align:center;}
+header h1{color:#22c55e;}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px;}
+.card{background:#1e293b;padding:15px;border-radius:12px;text-align:center;}
+.card img{width:100%;border-radius:10px;}
+.price{color:#22c55e;font-weight:bold;}
+button{background:#22c55e;border:none;padding:10px;margin-top:10px;font-weight:bold;cursor:pointer;border-radius:8px;}
+.cart{background:#111827;padding:20px;}
+input{padding:8px;margin:5px 0;width:100%;}
+iframe{width:100%;height:250px;border:0;}
+footer{text-align:center;padding:20px;background:#111827;}
+.whatsapp-float{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:15px 20px;
+border-radius:50px;
+font-weight:bold;
+text-decoration:none;
+box-shadow:0 0 15px #25D366;
+}
+.quick{background:#facc15;color:black;}
+</style>
+
+</head>
+<body>
+
+<header>
+<h1>Azuki Sushi</h1>
+<p>📍 Кольбаева 45Б, Бишкек</p>
+<p>🚚 Доставка 30-60 мүнөт</p>
+</header>
+
+<section class="menu">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1607301405390-0f6f1e5e1e20">
+<h3>Филадельфия</h3>
+<p class="price">450 сом</p>
+<button onclick="addToCart('Филадельфия',450)">Кошуу</button>
+<button class="quick" onclick="quickOrder('Филадельфия',450)">1 клик заказ</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1553621042-f6e147245754">
+<h3>Калифорния</h3>
+<p class="price">400 сом</p>
+<button onclick="addToCart('Калифорния',400)">Кошуу</button>
+<button class="quick" onclick="quickOrder('Калифорния',400)">1 клик заказ</button>
+</div>
+
+</section>
+
+<section class="cart">
+<h2>🛒 Корзина</h2>
+<ul id="cartItems"></ul>
+<h3>Жалпы: <span id="total">0</span> сом</h3>
+
+<input id="name" placeholder="Атыңыз">
+<input id="address" placeholder="Дарек">
+<input id="phoneInput" placeholder="Телефон">
+
+<button onclick="sendOrder()">WhatsApp менен заказ</button>
+</section>
+
+<section>
+<h2 style="text-align:center">Биз картада</h2>
+<iframe src="https://maps.google.com/maps?q=Кольбаева%2045Б%20Бишкек&output=embed"></iframe>
+</section>
+
+<footer>
+<p>📞 +996500605200</p>
+<p>© 2026 Azuki Sushi</p>
+</footer>
+
+<a class="whatsapp-float"
+href="https://wa.me/996500605200?text=Саламатсызбы%20меню%20жибересизби"
+target="_blank">
+WhatsApp
+</a>
+
+<script>
+const PHONE="996500605200";
+let cart=[];
+let total=0;
+
+function addToCart(name,price){
+cart.push({name,price});
+total+=price;
+renderCart();
+}
+
+function renderCart(){
+let list=document.getElementById("cartItems");
+list.innerHTML="";
+cart.forEach(i=>{
+let li=document.createElement("li");
+li.textContent=i.name+" - "+i.price+" сом";
+list.appendChild(li);
+});
+document.getElementById("total").innerText=total;
+}
+
+function sendOrder(){
+if(cart.length===0){alert("Корзина бош");return;}
+
+let name=document.getElementById("name").value;
+let address=document.getElementById("address").value;
+let phone=document.getElementById("phoneInput").value;
+
+let message="Жаңы заказ:%0A";
+cart.forEach(i=>{
+message+=i.name+" - "+i.price+" сом%0A";
+});
+message+="%0AЖалпы:"+total+" сом%0A";
+message+="Аты:"+name+"%0AДарек:"+address+"%0AТелефон:"+phone;
+
+window.open("https://wa.me/"+PHONE+"?text="+message);
+}
+
+function quickOrder(name,price){
+let message="1 клик заказ:%0A"+name+" - "+price+" сом";
+window.open("https://wa.me/"+PHONE+"?text="+message);
+}
+</script>
+
+</body>
+</html>
